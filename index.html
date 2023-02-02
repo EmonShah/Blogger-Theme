@@ -30,6 +30,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: var(--defultFont);
 }
 body{
     display: flex;
@@ -37,15 +38,17 @@ body{
     justify-content: center;
     align-items: center;
    
+   
 }
   .price, .size, .color{
     align-self: flex-start;
     font-size: 0.9rem;
     font-family: var(--defultFont);
-    margin-top: 1rem;
+    margin-bottom: 1rem;
  
 }
   #price,  input[type="url"],#custom-size, #custom-fild, #post-title, #post-title-2 {
+    width: 100%;
     border: 2px solid black;
     border-radius: 0.5rem;
     font-family: 'Montserrat', sans-serif;
@@ -55,7 +58,7 @@ body{
  #product-body-text,  #product-body-text-2 {
     padding: 10px;
 }
-#submit, .copy_btn, #fild-img, #fild-size, #fild-add{
+#submit, .copy_btn, #fild-img, #fild-size, #fild-add, #fild-img-close, #fild-size-close, #fild-add-close{
     font-size: 1.3rem;
     padding: 0.2rem 0.8rem;
     margin-top: 2rem;
@@ -66,6 +69,10 @@ body{
     border-radius: 0.5rem;
     transform: scale(1);
     transition: transform 0.1s ease-out;
+    cursor: pointer;
+}
+#fild-img-close, #fild-size-close, #fild-add-close{
+    background-color: red !important;
 }
 .copy_btn{
     margin: 0 0 0 1rem;
@@ -83,27 +90,29 @@ body{
     margin: 3rem 0;
 }
 div#contains{
+    width: 300px;
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
+    row-gap: 10px;
 }
 textarea{
     width: 21rem;
     border: 2px solid black;
     border-radius: 0.5rem;
-    font-family: 'Courier New', Courier, monospace;
+    
 }
 input[type="text"], input[type="number"], select{
     width: 400px;
-    height: 50px;
+    height: 35px;
 }
 input[type="url"]{
-width: 400px;
+width: 100%;
 height: 40px;
 }
  span.custom-color-add, span.custom-size-btn, span.custom-img-btn {
-    background: #b31111;
+    background: #da3c3c;
     padding: 10px;
     border-radius: 5px;
     color: white;
@@ -118,6 +127,7 @@ height: 40px;
 .product-upload {
     display: flex;
     gap: 30px;
+    flex-wrap: wrap;
     align-items: flex-start;
     width: 90%;
 }
@@ -130,6 +140,7 @@ height: 40px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    display: none;
 }
 .custom-img-add{
     display:none;
@@ -208,6 +219,7 @@ img#single-product-img {
          <div class="custom-img-add">
             <input id="custom-img" type="url">
             <button id="fild-img"  type="submit">Add</button>
+            <button id="fild-img-close"  type="submit">Cancel</button>
          </div>
          
          <span class="custom-img-btn">Custom Image Add</span> 
@@ -217,28 +229,25 @@ img#single-product-img {
          </div>
         
          <label for="size" class="size">Size</label>
-         <ul class="p-list-warpper" name="product-size" id="size">
-             <li>S</li>
-             <li>M</li>
-             <li>L</li>
-           
+         <ul class="p-list-warpper" name="product-size" id="size" >
+             
          </ul>
          <div class="custom-size-add">
              <input id="custom-size" type="text">
              <button id="fild-size"  type="submit">Add</button>
+             <button id="fild-size-close"  type="submit">Cancel</button>
           </div>
           
           <span class="custom-size-btn">Custom size Add</span> 
           <label for="color" class="color">Color</label>
           <ul class="p-list-warpper" name="product-color" id="color">
-              <li>Red</li>
-              <li>White</li>
-              <li>Black</lie>
+            
              
           </ul>
           <div class="custom-label-add">
               <input id="custom-fild" type="text">
               <button id="fild-add" type="submit">Add</button>
+              <button id="fild-add-close"  type="submit">Cancel</button>
            </div>
           
           <span class="custom-color-add">Custom Color Add</span> 
@@ -287,27 +296,34 @@ img#single-product-img {
 <script type="text/javascript">
 
  
- 
-
-
-$('.custom-img-btn').on('click',function(){
-   $('.custom-img-add').show();
-   $('#custom-img').val('');
+function addfildempty(a,b){
+    $(a).show();
+   $(b).val('');
    $('#custom-overlay').show();
+}
+ 
+$('.custom-img-btn').on('click',function(){
+   addfildempty('.custom-img-add','#custom-img' );
 });
 
 $('.custom-size-btn').on('click',function(){
-   $('.custom-size-add').show();
-   $('#custom-overlay').show();
+   addfildempty('.custom-size-add','#custom-size' );
 });
 
 $('.custom-color-add').on('click',function(){
-   $('.custom-label-add').show();
-   $('#custom-overlay').show();
+   addfildempty('.custom-label-add','#custom-fild' );
 });
 
+
+
+
+
+
+
+
+
 $('#fild-img').on('click',function(){
-    let ctn_img = $('#custom-img').val();
+    let ctn_img = $('#custom-img').val().replace(/ /g,'');
    if(!(ctn_img == "")){
     $(`<input type="url" value="${ctn_img}">`).appendTo('.product_img_all');
     $(` <a class="product-slider-img_btn"  href="javascript:void(0)"> <div class="product-img-wrapper"><img id="single-product-img"   src="${ctn_img}" alt=""></div> </a>`).appendTo('.single-product-btn_wrapper');
@@ -315,37 +331,55 @@ $('#fild-img').on('click',function(){
     $('.custom-img-add').hide();
     $('#custom-overlay').hide();
    }else{
-    alert('sd');
+    alert('This Input is Empty');
    }
 });
 
+ 
+function emon(a,b,c){
+    let  ctn_size = $(a).val().trim();
+         
+    if(!(ctn_size == "")){
+
+    $(`<li>${ctn_size}</li>`).appendTo(b);
+    $(c).hide();
+    $('#custom-overlay').hide();
+
+    }else{
+     
+        alert('This Input is Empty');
+    }
+}
+
 
 $('#fild-size').on('click',function(){
-    let ctn_size = $('#custom-size').val(); 
-    $(`<li>${ctn_size}</li>`).appendTo('#size');
-
-   
-    $('.custom-size-add').hide();
-    $('#custom-overlay').hide();
+  
+     emon('#custom-size','#size','.custom-size-add')
+    
 })
 
 $('#fild-add').on('click',function(){
-    let ctn_color = $('#custom-fild').val(); 
-    $(`<li>${ctn_color}</li>`).appendTo("#color");
-    $('.custom-label-add').hide();
-    $('#custom-overlay').hide();
+
+    emon('#custom-fild','#color','.custom-label-add')
+    
  
 })
 
 
-$('#custom-overlay').click(function(){
+ 
 
+function customLabel(){
+    $('#custom-overlay').hide();
     $('.custom-label-add').hide();
     $('.custom-size-add').hide();
     $('.custom-img-add').hide();
-    $(this).hide();
+}
 
+
+$('#fild-img-close, #fild-size-close, #fild-add-close').on('click',function(){
+    customLabel();
 });
+
 
  
  
