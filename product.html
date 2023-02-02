@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <title>Product Upload</title>
+ 
+ 
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400&family=Roboto:wght@100;300;400;500&display=swap');
+
+
+:root{
+	--defultFont: "Montserrat", sans-serif;
+	--headerColor: #008aff;
+}
+/* core css section start */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+   
+}
+  .price, .size, .color{
+    align-self: flex-start;
+    font-size: 0.9rem;
+    font-family: var(--defultFont);
+    margin-top: 1rem;
+ 
+}
+  #price,  input[type="url"],#custom-size, #custom-fild, #post-title, #post-title-2 {
+    border: 2px solid black;
+    border-radius: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+     padding-left: 10px;
+    outline: none;
+}
+ #product-body-text,  #product-body-text-2 {
+    padding: 10px;
+}
+#submit, .copy_btn, #fild-img, #fild-size, #fild-add{
+    font-size: 1.3rem;
+    padding: 0.2rem 0.8rem;
+    margin-top: 2rem;
+    background-color: black;
+    color: white;
+    border: 2px solid transparent;
+    outline: none;
+    border-radius: 0.5rem;
+    transform: scale(1);
+    transition: transform 0.1s ease-out;
+}
+.copy_btn{
+    margin: 0 0 0 1rem;
+    height: 3.5rem;
+}
+#submit:hover, .copy_btn:hover{
+    cursor: pointer;
+    transform: scale(0.95);
+}
+
+.result{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 0;
+}
+div#contains{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+textarea{
+    width: 21rem;
+    border: 2px solid black;
+    border-radius: 0.5rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+input[type="text"], input[type="number"], select{
+    width: 400px;
+    height: 50px;
+}
+input[type="url"]{
+width: 400px;
+height: 40px;
+}
+ span.custom-color-add, span.custom-size-btn, span.custom-img-btn {
+    background: #b31111;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin-top: 5px;
+    font-family: var(--defultFont);
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+}
+ 
+  
+.product-upload {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    width: 90%;
+}
+ 
+.product-dec {
+    display: flex;
+    flex-direction: column;
+}
+.product-img {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.custom-img-add{
+    display:none;
+    z-index: 122;
+}
+.custom-label-add{
+    display: none;
+    z-index: 112;
+}
+.custom-size-add{ 
+    display: none;
+    z-index: 112;
+}
+
+input#custom-fild, input#custom-size{
+    width: 250px;
+    height: 35px;
+}
+#custom-overlay{
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: .6;
+    z-index: 11;
+}
+ul.p-list-warpper{
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+}
+ul.p-list-warpper li {
+    padding: 3px 15px;
+    border: 1px solid;
+    margin: 5px;
+    border-color: #29407f;
+}
+label {
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: 500;
+    padding: 10px 0;
+}
+.single-product-btn_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+}
+img#single-product-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border: 2px solid darkcyan;
+}
+     </style>
+  
+</head>
+<body>
+  <div class="product-upload">
+    <div id="contains">
+        
+        <label for="price" class="price">Price</label>
+        <input type="number" id="price" name="price">
+         <div class="product-img product_img_all">
+            <label for="img1">Product Image</label>
+          
+ 
+         </div>
+         <div class="custom-img-add">
+            <input id="custom-img" type="url">
+            <button id="fild-img"  type="submit">Add</button>
+         </div>
+         
+         <span class="custom-img-btn">Custom Image Add</span> 
+
+         <div class="single-product-btn_wrapper">
+      
+         </div>
+        
+         <label for="size" class="size">size</label>
+         <ul class="p-list-warpper" name="product-size" id="size">
+             <li>S</li>
+             <li>M</li>
+             <li>L</li>
+           
+         </ul>
+         <div class="custom-size-add">
+             <input id="custom-size" type="text">
+             <button id="fild-size"  type="submit">Add</button>
+          </div>
+          
+          <span class="custom-size-btn">Custom size Add</span> 
+          <label for="color" class="color">Color</label>
+          <ul class="p-list-warpper" name="product-color" id="color">
+              <li>Red</li>
+              <li>White</li>
+              <li>Black</lie>
+             
+          </ul>
+          <div class="custom-label-add">
+              <input id="custom-fild" type="text">
+              <button id="fild-add" type="submit">Add</button>
+           </div>
+          
+          <span class="custom-color-add">Custom Color Add</span> 
+    </div>
+    <div class="upload-details">
+        <div class="product-img"></div>
+        <div class="product-dec">
+            <label for="post-title" class="title">Description title</label>
+            <input type="text" id="post-title">
+            <label for="product-body-text" class="title">Product Description</label>
+            <textarea name="" id="product-body-text" cols="30" rows="10"></textarea>
+            <label for="dec-img" class="title">Description img</label>
+            <input type="url" name="" id="dec-img" placeholder="Product Decription Img">
+            <label for="post-title-2" class="title">Description title</label>
+            <input type="text" id="post-title-2">
+            <label for="product-body-text-2" class="title">Product Description</label>
+            <textarea name="" id="product-body-text-2" cols="30" rows="10"></textarea>
+
+        </div>
+       
+    
+    </div>
+    <div>
+         
+        <button id="submit">Generate</button>
+        <div class="result">
+            <textarea class="result_text" type="text" rows="10"></textarea>
+            <button class="copy_btn"><i class="fas fa-clipboard"></i></button>
+        </div>
+    </div>
+  </div>
+  
+ 
+ <div  id="custom-overlay"></div>
+
+
+
+
+
+ 
+
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  
+ 
+<script type="text/javascript">
+
+ 
+ 
+
+
+$('.custom-img-btn').on('click',function(){
+   $('.custom-img-add').show();
+   $('#custom-img').val('');
+   $('#custom-overlay').show();
+});
+
+$('.custom-size-btn').on('click',function(){
+   $('.custom-size-add').show();
+   $('#custom-overlay').show();
+});
+
+$('.custom-color-add').on('click',function(){
+   $('.custom-label-add').show();
+   $('#custom-overlay').show();
+});
+
+$('#fild-img').on('click',function(){
+    let ctn_img = $('#custom-img').val();
+   if(!(ctn_img == "")){
+    $(`<input type="url" value="${ctn_img}">`).appendTo('.product_img_all');
+    $(` <a class="product-slider-img_btn"  href="javascript:void(0)"> <div class="product-img-wrapper"><img id="single-product-img"   src="${ctn_img}" alt=""></div> </a>`).appendTo('.single-product-btn_wrapper');
+  
+    $('.custom-img-add').hide();
+    $('#custom-overlay').hide();
+   }else{
+    alert('sd');
+   }
+});
+
+
+$('#fild-size').on('click',function(){
+    let ctn_size = $('#custom-size').val(); 
+    $(`<li>${ctn_size}</li>`).appendTo('#size');
+
+   
+    $('.custom-size-add').hide();
+    $('#custom-overlay').hide();
+})
+
+$('#fild-add').on('click',function(){
+    let ctn_color = $('#custom-fild').val(); 
+    $(`<li>${ctn_color}</li>`).appendTo("#color");
+    $('.custom-label-add').hide();
+    $('#custom-overlay').hide();
+ 
+})
+
+
+$('#custom-overlay').click(function(){
+
+    $('.custom-label-add').hide();
+    $('.custom-size-add').hide();
+    $('.custom-img-add').hide();
+    $(this).hide();
+
+});
+
+ 
+ 
+
+
+ 
+let title = document.querySelector("#title"); 
+let price = document.querySelector("#price");
+let img_all = document.querySelector(".single-product-btn_wrapper");
+let size = document.querySelector("#size");
+let color = document.querySelector("#color");
+let postTitle1 = document.querySelector("#post-title");
+let product_body1 = document.querySelector("#product-body-text");
+let dec_img = document.querySelector("#dec-img");
+let post_title2 = document.querySelector("#post-title-2");
+let product_body2 = document.querySelector("#product-body-text-2");
+
+let result = document.querySelector(".result_text");
+let submit_btn = document.querySelector("#submit");
+let copy_btn = document.querySelector(".copy_btn");
+ 
+ 
+
+function generate( price, img_all, size, color, postTitle1, product_body1, dec_img, post_title2, product_body2){
+   
+    let html_content = `
+        
+    <div id="single-product_home">
+    <div class="single-product_wrapper container">
+        <div class="single-product_img">
+            <div class="product-slider_img zoom" ontouchmove="zoom(event)" onmousemove="zoom(event)">
+                  <img id="product_view_img" src="" alt="">
+                </div>
+            <div class="single-product-btn_wrapper">
+               ${img_all}
+           </div>
+        </div>
+        <div class="single-product_details">
+            <h1 class="product-title"> </h1>
+            <span class="productPrice" ><b id='view-carency'> </b><b id='p-bdt'>${price} </b><b id='bdt'>BDT</b></span>
+            <br>
+            <ul name="product-size" class="productOption" id="product-size">
+                <small>Size</small>
+                 ${size}
+         </ul>
+          
+            <br>
+            <ul class="productOption" id='product-color'>
+                <small>Color</small>
+                ${color}
+            </ul>
+            <div class="productCkeckout">
+                <div class="productQty">
+                    <span class="quantity-title">Quantity</span>
+                    <div class="quantity-content_body">
+                        <button   class="icon_minus">&minus;</button>
+                        <input id="input_demo" class="qty-input" type="number" value="0">
+                        <button class="icon_plus">&plus;</button>
+                    </div>
+                </div>
+                <div class="buy-now-button">
+                        <button id="product_buy_btn">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="product-post-body">
+   <div class="f-title">${postTitle1}</div>
+   <div class="f-para">${product_body1}</div>
+   <div class="p-img">${dec_img}</div>
+   <div class="l-title">${post_title2}</div>
+   <div class="l-para">${product_body2}</div>
+    </div>
+  
+    `;
+ 
+    
+    result.value = html_content;
+    
+}
+
+function copy(){
+    result.select();
+    document.execCommand("copy");
+}
+
+submit_btn.addEventListener("click", () => {
+    generate( price.value, img_all.innerHTML, size.innerHTML, color.innerHTML, postTitle1.value, product_body1.value, dec_img.value, post_title2.value, product_body2.value);
+  
+    price.value = "";
+    img_all.innerHTML = '';
+    size.innerHTML ='';
+    color.innerHTML ='';
+    postTitle1.value ='';
+    product_body1.value ='';
+    dec_img.value = '';
+    post_title2.value = '';
+    product_body2.value ='';
+     
+});
+
+copy_btn.addEventListener("click", () => {
+    copy();
+})
+
+window.addEventListener("unload", () => {
+    result.value = "";
+})
+
+
+  
+
+
+
+$('.productOption li').on('click',function(){
+    
+    $(this).addClass('selected').siblings().removeClass('selected')
+  
+ }) ;
+
+ 
+
+
+ jQuery(function(){
+ 
+  var addInput = '#input_demo';  
+  var n = 1;  
+  
+  //Set default value to n (n = 1)
+  $(addInput).val(n);
+
+  //On click add 1 to n
+  $('.icon_plus').on('click', function(){
+    $(addInput).val(++n);
+  })
+
+  $('.icon_minus').on('click', function(){
+    //If n is bigger or equal to 1 subtract 1 from n
+    if (n >= 1) {
+      $(addInput).val(--n);
+    } else {
+      //Otherwise do nothing
+    }
+  });
+});
+   
+</script>
+</body>
+</html>
