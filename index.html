@@ -284,6 +284,7 @@ img#single-product-img {
  <div  id="custom-overlay"></div>
 
 
+ <div id="editable">Click to edit</div>
 
 
 
@@ -294,6 +295,27 @@ img#single-product-img {
   
  
 <script type="text/javascript">
+
+
+$(document).ready(function() {
+  $(".size, .color").click(function() {
+    var originalText = $(this).text();
+    $(this).attr("contenteditable", true);
+    $(this).focus();
+
+    $(this).blur(function() {
+      $(this).removeAttr("contenteditable");
+      var updatedText = $(this).text();
+      if (originalText !== updatedText) {
+        // handle the updated text here, for example, send an AJAX request to update it in the database
+        alert("Text updated from '" + originalText + "' to '" + updatedText + "'");
+      }
+    });
+  });
+});
+
+
+ 
 
  
 function addfildempty(a,b){
@@ -336,7 +358,7 @@ $('#fild-img').on('click',function(){
 });
 
  
-function emon(a,b,c){
+function customvalue(a,b,c){
     let  ctn_size = $(a).val().trim();
          
     if(!(ctn_size == "")){
@@ -354,13 +376,13 @@ function emon(a,b,c){
 
 $('#fild-size').on('click',function(){
   
-     emon('#custom-size','#size','.custom-size-add')
+    customvalue('#custom-size','#size','.custom-size-add')
     
 })
 
 $('#fild-add').on('click',function(){
 
-    emon('#custom-fild','#color','.custom-label-add')
+    customvalue('#custom-fild','#color','.custom-label-add')
     
  
 })
@@ -396,14 +418,15 @@ let product_body1 = document.querySelector("#product-body-text");
 let dec_img = document.querySelector("#dec-img");
 let post_title2 = document.querySelector("#post-title-2");
 let product_body2 = document.querySelector("#product-body-text-2");
-
 let result = document.querySelector(".result_text");
 let submit_btn = document.querySelector("#submit");
 let copy_btn = document.querySelector(".copy_btn");
- 
- 
 
-function generate( price, img_all, size, color, postTitle1, product_body1, dec_img, post_title2, product_body2){
+let hSize = document.querySelector(".size");;
+let hColor = document.querySelector(".color");;
+ 
+ 
+function generate( price, img_all, size, hSize, hColor, color, postTitle1, product_body1, dec_img, post_title2, product_body2){
    
     let html_content = `
         
@@ -422,13 +445,12 @@ function generate( price, img_all, size, color, postTitle1, product_body1, dec_i
             <span class="productPrice" ><b id='view-carency'> </b><b id='p-bdt'>${price} </b><b id='bdt'>BDT</b></span>
             <br>
             <ul name="product-size" class="productOption" id="product-size">
-                <small>Size</small>
+                <small>${hSize}</small>
                  ${size}
-         </ul>
-          
+            </ul>
             <br>
             <ul class="productOption" id='product-color'>
-                <small>Color</small>
+                <small>${hColor}</small>
                 ${color}
             </ul>
             <div class="productCkeckout">
@@ -468,11 +490,13 @@ function copy(){
 }
 
 submit_btn.addEventListener("click", () => {
-    generate( price.value, img_all.innerHTML, size.innerHTML, color.innerHTML, postTitle1.value, product_body1.value, dec_img.value, post_title2.value, product_body2.value);
+    generate( price.value, img_all.innerHTML, size.innerHTML, hSize.innerHTML, hColor.innerHTML, color.innerHTML, postTitle1.value, product_body1.value, dec_img.value, post_title2.value, product_body2.value);
   
     price.value = "";
     img_all.innerHTML = '';
     size.innerHTML ='';
+    hSize.innerHTML ='';
+    hColor.innerHTML ='';
     color.innerHTML ='';
     postTitle1.value ='';
     product_body1.value ='';
