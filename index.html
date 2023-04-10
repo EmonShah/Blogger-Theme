@@ -44,10 +44,10 @@ body{
     align-self: flex-start;
     font-size: 0.9rem;
     font-family: var(--defultFont);
-    margin-bottom: 1rem;
+   
  
 }
-  #price,  input[type="url"],#custom-size, #custom-fild, #post-title, #post-title-2 {
+  #order_id, #price, input[type="url"],#custom-size, #custom-fild, #post-title, #post-title-2 {
     width: 100%;
     border: 2px solid black;
     border-radius: 0.5rem;
@@ -208,9 +208,10 @@ img#single-product-img {
 <body>
   <div class="product-upload">
     <div id="contains">
-        
+        <label for="order_id" class="price">Order ID</label>
+        <input type="number" id="order_id" name="orderId" placeholder="Your Order ID">
         <label for="price" class="price">Price</label>
-        <input type="number" id="price" value='৳ 0.00' name="price">
+        <input type="number" id="price" value='৳ 0.00' name="price" placeholder="Your Product Price">
          <div class="product-img product_img_all">
             <label for="img1">Product Image</label>
           
@@ -421,7 +422,7 @@ let hSize = document.querySelector(".size");;
 let hColor = document.querySelector(".color");;
  
  
-function generate( price, img_all, size, hSize, hColor, color, postTitle1, product_body1, dec_img, post_title2, product_body2){
+function generate( order_id, price, img_all, size, hSize, hColor, color, postTitle1, product_body1, dec_img, post_title2, product_body2){
    
     let html_content = `
         
@@ -437,6 +438,7 @@ function generate( price, img_all, size, hSize, hColor, color, postTitle1, produ
         </div>
         <div class="single-product_details">
             <h1 class="product-title"> </h1>
+            <span class="order-id">Order ID : <b>${order_id}</b></span>
             <span class="productPrice" ><b id='view-carency'> </b><b id='p-bdt'>${price} </b><b id='bdt'>BDT</b></span>
             <br>
             <ul name="product-size" class="productOption" id="product-size">
@@ -485,9 +487,9 @@ function copy(){
 }
 
 submit_btn.addEventListener("click", () => {
-    generate( price.value, img_all.innerHTML, size.innerHTML, hSize.innerHTML, hColor.innerHTML, color.innerHTML, postTitle1.value, product_body1.value, dec_img.value, post_title2.value, product_body2.value);
-  
-    price.value = "";
+    generate(order_id.value, price.value, img_all.innerHTML, size.innerHTML, hSize.innerHTML, hColor.innerHTML, color.innerHTML, postTitle1.value, product_body1.value, dec_img.value, post_title2.value, product_body2.value);
+    order_id.value = '';
+    price.value = '';
     img_all.innerHTML = '';
     size.innerHTML ='';
     hSize.innerHTML ='';
